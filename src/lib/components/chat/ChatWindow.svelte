@@ -35,7 +35,7 @@
   }
 </script>
 
-<div class="flex flex-col h-[350px] w-full bg-white rounded-lg shadow-sm">
+<div class="flex flex-col h-full">
   <MessageList 
     {messages} 
     onSelect={handleTextSelection} 

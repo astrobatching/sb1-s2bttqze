@@ -17,14 +17,13 @@
 </script>
 
 <div
-  class="fixed bg-white rounded-xl shadow-2xl overflow-hidden transform-gpu"
-  class:w-[500px]={!isMinimized}
+  class="md:fixed bg-white overflow-hidden transform-gpu fixed inset-0 md:inset-auto md:w-[500px] md:rounded-xl md:shadow-2xl flex flex-col"
   class:w-auto={isMinimized}
   style="left: {$windowPosition.x}px; top: {$windowPosition.y}px; transition: {$isDragging ? 'none' : 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'};"
 >
   <!-- Header -->
   <div
-    class="flex items-center justify-between p-2 bg-gradient-to-r from-teal-700 to-blue-900 text-white cursor-move"
+    class="flex items-center justify-between p-2 bg-gradient-to-r from-teal-700 to-blue-900 text-white cursor-move shrink-0"
     on:mousedown={handleDragStart}
   >
     <div class="flex items-center gap-2">
@@ -46,7 +45,7 @@
       </button>
       <button
         on:click={toggleMinimize}
-        class="p-1 hover:bg-teal-600 rounded-lg transition-colors"
+        class="p-1 hover:bg-teal-600 rounded-lg transition-colors md:block hidden"
         title={isMinimized ? 'Maximize' : 'Minimize'}
       >
         <span class="material-icons text-sm">
@@ -58,19 +57,23 @@
 
   <!-- Content -->
   {#if !isMinimized}
-    <div class="p-2 space-y-2">
-      <div class="flex gap-2">
-        <ModelSelector />
-        <PersonaSelector />
+    <div class="flex flex-col flex-1 overflow-hidden">
+      <div class="p-2 space-y-2 shrink-0">
+        <div class="flex gap-2">
+          <ModelSelector />
+          <PersonaSelector />
+        </div>
+        
+        <ActionButtons />
+        
+        {#if $settingsVisible}
+          <Settings />
+        {/if}
       </div>
       
-      <ActionButtons />
-      
-      {#if $settingsVisible}
-        <Settings />
-      {/if}
-      
-      <ChatWindow />
+      <div class="flex-1 min-h-0">
+        <ChatWindow />
+      </div>
     </div>
   {/if}
 </div>
